@@ -180,7 +180,7 @@ void addClifford(const Uop& u,vector<Uop>& list) {
 	vector<int> con(u.con);
 
 	list.push_back(Uop(I, X, Y, Z, hie,con)); // I
-	con.push_back(1);					list.push_back(Uop(X, -I, Z, -Y, hie, con)); con.pop_back();  // iX
+	con.push_back(1);	list.push_back(Uop(X, -I, Z, -Y, hie, con)); con.pop_back();  // iX
 	con.push_back(2);	list.push_back(Uop((I + X) / sqrt2, (X - I) / sqrt2, (Y + Z) / sqrt2, (Z - Y) / sqrt2, hie,con)); con.pop_back();   // I+iX
 	con.push_back(3);	list.push_back(Uop((I - X) / sqrt2, (X + I) / sqrt2, (Y - Z) / sqrt2, (Z + Y) / sqrt2, hie, con)); con.pop_back();   // I-iX
 	con.push_back(4);	list.push_back(Uop((I + Y) / sqrt2, (X - Z) / sqrt2, (Y - I) / sqrt2, (Z + X) / sqrt2, hie, con)); con.pop_back();   // I+iY
@@ -336,14 +336,16 @@ Uop solovayKitaev(const set<Uop> U0set, const Uop& u, int rec) {
 		ny = udd.Y/nn;
 		nz = udd.Z/nn;
 
+		// udd.print();
+		//cout << nx << " " << ny << " " << nz << endl;
+
+
 		mn = sqrt(1.-pow(udd.I,2));
 		mx = 2 * pow(s, 3)*c/mn;
 		my = -2 * pow(s, 3)*c/mn;
 		mz = -2 * pow(s, 2)*pow(c, 2)/mn;
 
-		//udd.print();
 		//(V*W*V.dag()*W.dag()).print();
-		//cout << nx << " "  << ny << " " << nz << endl;
 		//cout << mx << " " << my << " " << mz << endl;
 
 		x = (nx + mx) / 2;
@@ -360,28 +362,8 @@ Uop solovayKitaev(const set<Uop> U0set, const Uop& u, int rec) {
 		//cout << x << " " << y << " " << z << endl;
 		//Uop u = V*W*V.dag()*W.dag();
 
-		/*
-		u.print();
-		S.print();
-		(S*(V*W*V.dag()*W.dag())*S).print();
-		udd.print();
-		exit(0);
-
-		udd.print();
-		cout << c << " " << s << endl;
-		V.print();
-		W.print();
-		(V*W*V.dag()*W.dag()).print();
-		S.print();
-		(S*V*W*V.dag()*W.dag()*S.dag()).print();
-		(S.dag()*V*W*V.dag()*W.dag()*S).print();
-		(Vt*Wt*Vt.dag()*Wt.dag()).print();
-		udd.print();
-		exit(0);
-		*/
 		//udd.print();
 		//(Vt*Wt*Vt.dag()*Wt.dag()).print();
-		//exit(0);
 
 		Uop vd = solovayKitaev(U0set, Vt, rec - 1);
 		Uop wd = solovayKitaev(U0set, Wt, rec - 1);
